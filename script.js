@@ -32,19 +32,19 @@ console.log("\n lesson 3 ------------\n");
 title = prompt("Как называется ваш проект?");
 screens = prompt("Какие типы экранов нужно разработать?");
 screenPrice = Number(prompt("Сколько будет стоить данная работа?"));
-adaptive = prompt("Нужен ли адаптив на сайте?");
+adaptive = confirm("Нужен ли адаптив на сайте?");
 let service1 = prompt("Какой дополнительный тип услуги нужен?");
 let servicePrice1 = 1 * (prompt("Сколько это будет стоить?"));
 let service2 = prompt("Какой дополнительный тип услуги нужен?");
 let servicePrice2 = ~~(prompt("Сколько это будет стоить?"));
 
-/*prompt check
+//prompt check
 console.log(title);
 console.log(screens);
 console.log(typeof screenPrice, screenPrice);
 console.log(adaptive);
 console.log(service1, typeof servicePrice1, servicePrice1);
-console.log(service2, typeof servicePrice2, servicePrice2);*/
+console.log(service2, typeof servicePrice2, servicePrice2);
 
 fullPrice = screenPrice + servicePrice1 + servicePrice2;
 console.log("Данная работа обойдется клиенту в", fullPrice, "фунтов");
