@@ -11,6 +11,7 @@ let service2 = prompt("Какой дополнительный тип услуг
 let servicePrice2 = Number(prompt("Сколько это будет стоить?"));
 
 let rollback = 15;
+let allServicePrices, fullPrice, servicePercentPrice;
 //let allServicePrices = servicePrice1 + servicePrice2
 //let fullPrice = screenPrice + allServicePrices;
 //let rollbackAmount = fullPrice * (rollback/100);
@@ -34,16 +35,12 @@ const getRollbackMessage = function(price) {
     }
 };
 
-//в price1,2 передаем servicePrice1,2
 const getAllServicePrices = function(price1, price2) {  
-    let allServicePrices = price1 + price2;
-    return allServicePrices;
+    return price1 + price2;
 };
 
-//в price передаем screenPrice, в callback - getAllServicePrices
-function getFullPrice(price, callback) {
-    let fullPrice = price + callback;
-    return fullPrice;
+function getFullPrice(price, servicePrice) {
+    return price + servicePrice;
 }
 
 function getTitle() {
@@ -52,15 +49,16 @@ function getTitle() {
     console.log("Название вашего проекта:", title);
 }
 
-//в callback - getFullPrice(); v percent - rollback
-function getServicePercentPrices(callback, percent) {
-    let servicePercentPrice = Math.ceil(callback - function() {
-        return callback * (percent/100);
-    });
-    return servicePercentPrice;
+function getServicePercentPrices(price, percent) {
+    return Math.ceil(price - (price * (percent/100)));
 }
 
 //блок функционала
+
+allServicePrices = getAllServicePrices(servicePrice1, servicePrice2);
+fullPrice = getFullPrice(screenPrice, allServicePrices);
+servicePercentPrice = getServicePercentPrices(fullPrice, rollback);
+
 showTypeOf(title);
 showTypeOf(screenPrice);
 showTypeOf(adaptive);
@@ -70,9 +68,9 @@ getTitle();
 //мусорный блок
 
 console.log("Выбранные вами типы экранов:", screens);
-console.log(getRollbackMessage(getFullPrice(screenPrice, getAllServicePrices(servicePrice1, servicePrice2))));
-console.log("Данная работа обойдется клиенту в", getFullPrice(screenPrice, getAllServicePrices(servicePrice1, servicePrice2)), "фунтов");
-console.log("С вычетом отката посреднику я получу", getServicePercentPrices(getFullPrice(screenPrice, getAllServicePrices(servicePrice1, servicePrice2)), rollback), "фунтов");
+console.log(getRollbackMessage(fullPrice));
+console.log("Данная работа обойдется клиенту в", fullPrice, "фунтов");
+console.log("С вычетом отката посреднику я получу", servicePercentPrice, "фунтов");
 
 
 /*prompt check
