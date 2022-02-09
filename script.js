@@ -98,13 +98,6 @@ title = getTitle();
 showTypeOf(title);
 showTypeOf(screenPrice);
 showTypeOf(adaptive); 
-// showTypeOf(screens);
-// showTypeOf(allServicePrices); 
-// showTypeOf(fullPrice); 
-// showTypeOf(servicePercentPrice); 
-// showTypeOf(service1);
-// showTypeOf(service2);
-// showTypeOf(servicePrice);
 
 //мусорный блок
 
