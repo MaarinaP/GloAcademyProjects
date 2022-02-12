@@ -83,7 +83,7 @@ const appData = {
     },
     logger: function() {
         for (let key in appData) {
-            console.log(key);
+            console.log(key, ":", appData[key]);
         }
     }
 
