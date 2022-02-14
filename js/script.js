@@ -4,6 +4,8 @@
 
 const title = document.getElementsByTagName("h1")[0].innerHTML;
 const button = document.getElementsByClassName("handler_btn");
+const buttonStart = button[0];
+const buttonReset = button[1];
 const buttonPlus = document.querySelector(".screen-btn");
 const otherItemsPercent = document.querySelectorAll(".other-items.percent");
 const otherItemsNumber = document.querySelectorAll(".other-items.number");
@@ -131,35 +133,9 @@ const isString = function(string) {
 
 //блок функционала
 
-//если надо просто вывести
-const totalInputItem = function(){
-    for(let i = 0; i < totalInput.length; i++) {
-    console.log(totalInput[i]);
-    }
-};
-
-
-// appData.start();
+appData.start();
 
 let screenList = document.querySelectorAll(".screen");
-totalInputItem();
+
 
 //мусорный блок
-
-console.log(title);
-//кнопка "Расчитать"
-console.log(button[0]);
-//кнопка "Сброс"
-console.log(button[1]);
-console.log(buttonPlus);
-console.log(otherItemsPercent);
-console.log(otherItemsNumber);
-console.log(input);
-console.log(span);
-console.log(screenList);
-//если надо вывести 5 разных переменных
-console.log(totalInput1);
-console.log(totalInput2);
-console.log(totalInput3);
-console.log(totalInput4);
-console.log(totalInput5);
