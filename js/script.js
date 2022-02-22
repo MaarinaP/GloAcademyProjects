@@ -105,7 +105,7 @@ const appData = {
     addScreens: function(){
         screenList = document.querySelectorAll(".screen");
 
-        screenList.forEach(function(screen, index) {
+        screenList.forEach( (screen, index) => {
             const select = screen.querySelector("select");
             const input = screen.querySelector("input");
             const selectName = select.options[select.selectedIndex].textContent;
@@ -122,7 +122,7 @@ const appData = {
     //добавление информации в обьекты servicesPercent и servicesNumber
     addServices: function() {
         
-        otherItemsPercent.forEach(function(item) {
+        otherItemsPercent.forEach( (item) => {
 
             const check = item.querySelector("input[type=checkbox]");
             const label = item.querySelector("label").textContent;
@@ -133,7 +133,7 @@ const appData = {
             }
         });
 
-        otherItemsNumber.forEach(function(item) {
+        otherItemsNumber.forEach((item) => {
 
             const check = item.querySelector("input[type=checkbox]");
             const label = item.querySelector("label").textContent;
