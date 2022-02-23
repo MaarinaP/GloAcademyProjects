@@ -24,6 +24,8 @@ const totalWithRollback = total[4];
 
 let screenList = document.querySelectorAll(".screen");
 
+const inputCheckbox = document.querySelectorAll("input[type=checkbox]");
+
 
 const appData = {
     rollback: 0,
@@ -49,6 +51,8 @@ const appData = {
             rollbackSpan.textContent = rollbackInput.value + "%";
             this.rollback = rollbackInput.value;
         });
+        this.reset = this.reset.bind(this);
+        buttonReset.addEventListener("click", this.reset);
     },
     addTitle: function() {
         document.title = title.textContent;
@@ -56,16 +60,26 @@ const appData = {
     //метод для кнопки Рассчитать
     start: function() {
         if (this.validateFields()) {
-
             this.addScreens();
             this.addServices();
             this.addPrices();
             this.showResult();
         }
+        this.disableInput();
+        buttonStart.style.display = "none";
+        buttonReset.style.display = "block";
+    },
+    //метод для кнопки Сброс
+    reset: function() {
+        this.enableInput();
+        this.clearFields();
+        buttonReset.style.display = "none";
+        buttonStart.style.display = "block";
     },
     //обработка кнопки "+" и добавление полей экранов
     addScreenBlock: function(){
         const cloneScreen = screenList[0].cloneNode(true);
+        cloneScreen.classList.add("clone");
         cloneScreen.querySelector("input").value = null;
         screenList = document.querySelectorAll(".screen");
         screenList[screenList.length - 1].after(cloneScreen);
@@ -164,6 +178,50 @@ const appData = {
 
         this.servicePercentPrice = Math.ceil(this.fullPrice - (this.fullPrice * (this.rollback/100)));
 
+    },
+    disableInput: function() {
+        const inputFields = document.querySelectorAll(".screen input[type=text]");
+        const selectFields = document.querySelectorAll("select");
+
+        inputFields.forEach( (item) => item.disabled = true);  
+        selectFields.forEach( (item) => item.disabled = true);
+        inputCheckbox.forEach( (item) => item.disabled = true);
+        buttonPlus.disabled = true;
+    },
+    enableInput: function() {
+        const inputFields = document.querySelectorAll(".screen input[type=text]");
+        const selectFields = document.querySelectorAll("select");
+
+        inputFields.forEach( item => item.disabled = false);        
+        inputCheckbox.forEach( item => item.disabled = false);        
+        selectFields.forEach( item => item.disabled = false);
+        buttonPlus.disabled = false;
+    },
+    //вернуть все в исходное состояние 
+    clearFields: function() {
+
+        inputCheckbox.forEach( item => item.checked = false);  
+
+        this.screens = [];
+        const clones = document.querySelectorAll(".clone");
+        clones.forEach( clone => clone.remove());
+        document.querySelector("input").value = "";
+        document.querySelector("select").value = "";
+        screenList = document.querySelectorAll(".screen");
+
+        this.rollback = 0;
+        rollbackInput.value = 0;
+        rollbackSpan.textContent = rollbackInput.value + "%";
+
+        this.screenPrice = 0;
+        this.screenCount = 0;
+        this.servicePricesPercent = 0; 
+        this.servicePricesNumber = 0; 
+        this.fullPrice = 0; 
+        this.servicePercentPrice = 0; 
+        this.servicesPercent = {};
+        this.servicesNumber = {};
+        this.showResult();
     },
     logger: function() {
         console.log(this.fullPrice);
