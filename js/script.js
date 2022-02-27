@@ -64,10 +64,11 @@ const appData = {
             this.addServices();
             this.addPrices();
             this.showResult();
+            this.disableInput();
+            buttonStart.style.display = "none";
+            buttonReset.style.display = "block";
         }
-        this.disableInput();
-        buttonStart.style.display = "none";
-        buttonReset.style.display = "block";
+        
     },
     //метод для кнопки Сброс
     reset: function() {
