@@ -26,6 +26,11 @@ let screenList = document.querySelectorAll(".screen");
 
 const inputCheckbox = document.querySelectorAll("input[type=checkbox]");
 
+const cms = document.getElementById("cms-open");
+const hiddenCms = document.querySelector(".hidden-cms-variants");
+const selectCms = document.getElementById("cms-select");
+const cmsOther = hiddenCms.querySelector(".main-controls__input");
+
 
 const appData = {
     rollback: 0,
@@ -40,6 +45,8 @@ const appData = {
     servicePercentPrice: 0, 
     servicesPercent: {},
     servicesNumber: {},
+    cmsWordPress: 0,
+    cmsOther: 0,
     //запуск функции
     init: function() {
         this.addTitle();
@@ -50,6 +57,15 @@ const appData = {
         rollbackRange.addEventListener("input", () => {
             rollbackSpan.textContent = rollbackInput.value + "%";
             this.rollback = rollbackInput.value;
+        });
+        //обработка чекбокса CMS
+        cms.addEventListener("click", () => {
+            hiddenCms.style.display = "flex";
+        });
+        
+        selectCms.addEventListener("change", () => {
+            document.getElementById("cms-select").value == "other" ? 
+                cmsOther.style.display = "block" : cmsOther.style.display = "none";
         });
         this.reset = this.reset.bind(this);
         buttonReset.addEventListener("click", this.reset);
@@ -177,6 +193,15 @@ const appData = {
 
         this.fullPrice = this.screenPrice + this.servicePricesPercent + this.servicePricesNumber;
 
+        if (document.getElementById("cms-select").value == "other") {
+            let value = document.getElementById("cms-other-input").value;
+            this.fullPrice = Math.ceil(this.fullPrice * (1 + value/100));
+        } else if (document.getElementById("cms-select").value == 50) {
+            this.fullPrice = this.fullPrice * 1.5;
+        } else {
+            this.fullPrice = this.screenPrice + this.servicePricesPercent + this.servicePricesNumber;
+        }
+
         this.servicePercentPrice = Math.ceil(this.fullPrice - (this.fullPrice * (this.rollback/100)));
 
     },
@@ -197,6 +222,7 @@ const appData = {
         inputCheckbox.forEach( item => item.disabled = false);        
         selectFields.forEach( item => item.disabled = false);
         buttonPlus.disabled = false;
+        hiddenCms.style.display = "none";
     },
     //вернуть все в исходное состояние 
     clearFields: function() {
@@ -223,13 +249,7 @@ const appData = {
         this.servicesPercent = {};
         this.servicesNumber = {};
         this.showResult();
-    },
-    logger: function() {
-        console.log(this.fullPrice);
-        console.log(this.servicePercentPrice);
-        console.log(this.screens);
     }
-
 };
 
 //описание функционала
