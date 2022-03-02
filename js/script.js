@@ -259,4 +259,3 @@ const appData = {
 appData.init();
 
 //мусорный блок
-
